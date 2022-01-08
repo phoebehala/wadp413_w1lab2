@@ -9,14 +9,17 @@
 <body>
     <h1>write-message</h1> 
     
-    <form action="./message.text" method="POST">
-        <label for="title">title:</label>
+    <form action="/write-message" method="POST">
+        <!-- <label for="title">title:</label>
         <input type="text" id="title" name="title" required>
         
         <label for="body">body:</label>
         <textarea id="body" name="body" required></textarea>
 
         <button>Submit</button>
+ -->
+        <input type="text" name="message" />
+        <button type="submit">Send Message</button>
     </form>
 
     <nav>
