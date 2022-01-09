@@ -9,6 +9,22 @@ const server = http.createServer((req, res)=>{
     console.log(req.url);
     console.log(req.method);
 
+    if (req.url === '/read-message' && req.method === 'GET'){
+        try{
+            let data = fs.readFileSync('lect-01.txt','utf8')
+            
+            res.setHeader('Content-type','text/html')
+            res.write(`
+                <h1>Read a message</h1>
+                <h2>${data.split('+').join(' ')}</h2>
+            `)
+            return res.end()
+
+        }catch(e){
+            console.log('Error', e.stack)
+        }
+    }
+
     if (req.method === 'GET' ){
         
         // routing
@@ -17,17 +33,14 @@ const server = http.createServer((req, res)=>{
             case '/':
                 path += 'home.html';
                 break;
-            case '/read-message':
-                path += 'readmessage.html';
-                break;
             case '/write-message':
                 path += '/writemessage.html';
                 break;
             
         }
 
-        // set header content type (set what kinds of response is coming back to it)
-        res.setHeader('Content-type','text/html')
+         // set header content type (set what kinds of response is coming back to it)
+         res.setHeader('Content-type','text/html')
     
     
         // send an html file
@@ -36,14 +49,18 @@ const server = http.createServer((req, res)=>{
                 console.log(err);
                 res.end();
             }else{
-           
+               
+
                 res.write(data);
                 res.end();
             }
         })
 
+        
+
     }
 
+    
 
     if (req.url === '/write-message' && req.method === 'POST' ){
 
@@ -74,6 +91,8 @@ const server = http.createServer((req, res)=>{
         })      
        
     }
+
+   
     
  
  });
